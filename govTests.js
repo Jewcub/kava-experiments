@@ -3,6 +3,7 @@ const init = require('./init');
 const API_URL = init.API_URL;
 const pPrint = init.pPrint;
 const runExec = init.runExec;
+const dkvcli = init.dkvcli;
 async function fetchJSON(url) {
 	const response = await fetch(url);
 	if (!response.ok) {
@@ -38,21 +39,39 @@ const getNodeInfo = async () => {
 	pPrint(data.node_info.listen_addr, 'listen_addr');
 	return data;
 };
-const test = async () => {
-	try {
-		// getNodeInfo();
-	} catch (error) {
-		pPrint(error, 'error');
-	}
-	return await getAllValidators();
+
+// give a user tokens
+const giveUserTokens = () => {
+	// runExec(`${dkvcli} keys add user_bob --output json`);
+	runExec(`${dkvcli} keys show user_bob -a `);
+	runExec(
+		`${dkvcli} tx send ${init.newAddress} ${init.newAddress} 100000000000000ukava --from user_bob && y`
+	);
+};
+
+// stake the user's tokens
+const stakeUserTokens = async () => {
+	const validators = await getAllValidators();
+	const validator = validators.result[0];
 };
 
 // make a proposal
-
-// give a user tokens
-
-// stake the user's tokens
+const makeProposal = () => {
+	//
+};
 
 // vote on a proposal
+const voteOnProposal = () => {
+	//
+};
+
+const test = async () => {
+	try {
+		// getNodeInfo();
+		giveUserTokens();
+	} catch (error) {
+		pPrint(error, 'error');
+	}
+};
 
 module.exports = test;

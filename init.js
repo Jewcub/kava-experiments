@@ -28,11 +28,15 @@ const startTestNet = () => {
 };
 // startTestNet();
 
-const mnemonic = Kava.crypto.generateMnemonic();
+const newUserMnemonic = Kava.crypto.generateMnemonic();
 // pPrint(mnemonic, 'mnemonic');
 
+const defaultUserMnemonic =
+	'season bone lucky dog depth pond royal decide unknown device fruit inch clock trap relief horse morning taxi bird session throw skull avocado private';
+const defaultUserAddress = 'kava173w2zz287s36ewnnkf4mjansnthnnsz7rtrxqc';
+
 const client = new Kava.KavaClient(API_URL);
-client.setWallet(mnemonic);
+client.setWallet(defaultUserMnemonic);
 
 const myWalletAdd = 'kava1svgnjkqeyg80q78k7egrvvkpuyt70fxunkwgke';
 
@@ -41,7 +45,9 @@ const newAddress = client.wallet.address;
 module.exports = {
 	Kava,
 	API_URL,
-	mnemonic,
+	newUserMnemonic,
+	defaultUserMnemonic,
+	defaultUserAddress,
 	client,
 	newAddress,
 	myWalletAdd,
