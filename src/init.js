@@ -37,7 +37,7 @@ const archPrefix = `${
 }`;
 const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy --kava.configTemplate master`;
 const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}/full_configs/generated && docker-compose pull`;
-const startTestnetCmd = `kvtool testnet up && ${dkvcli} status`;
+const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}/full_configs/generated docker-compose.yaml up -d && ${dkvcli} status`;
 const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf ./full_configs/generated`;
 const purgeDockerCmd = `docker image prune --all --force`;
 /** `kvtool testnet up --kava.configTemplate master && ${dkvcli} status` */
