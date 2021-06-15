@@ -40,7 +40,8 @@ const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}/full_configs/generate
 const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}/full_configs/generated docker-compose.yaml up -d && ${dkvcli} status`;
 const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf ./full_configs/generated`;
 const purgeDockerCmd = `docker image prune --all --force`;
-/** `kvtool testnet up --kava.configTemplate master && ${dkvcli} status` */
+
+/** `${KVTOOL_DIR}/full_configs/generated docker-compose.yaml up -d && ${dkvcli} status` */
 const startTestnet = () => runExec(startTestnetCmd);
 
 /** fixes bug on mac m1 silicon where docker pulls the incompatible arm image */
