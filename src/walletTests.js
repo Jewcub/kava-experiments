@@ -26,7 +26,7 @@ const sendCoinsCmd = (sendAddressName, receiveAddress, amount, currency) =>
 
 
 const runTest = async () => {
-  await init.initialize();
+  // await init.initialize();
   await init.start();
   runExec(recoverCmd(init.devWalletName, init.devWalletMnemonic))
   runExec(sendCoinsCmd(init.devWalletAddName, init.devWalletAdd, 100000000000000, 'ukava'));
