@@ -13,7 +13,7 @@ const { pPrint, runExec, fetchJSON } = utils;
  */
 
 const devWalletAdd = process.env.DEV_WALLET_ADDRESS;
-const devWalletName = 'address1';
+const devWalletName = 'address11';
 const devWalletMnemonic = process.env.DEV_WALLET_MNEMONIC;
 //** Change is not on mac m1 amd chip */
 const ARCH_ENV = 'arm';
@@ -37,7 +37,7 @@ const archPrefix = `${
 }`;
 const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy --kava.configTemplate master`;
 const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}/full_configs/generated && docker-compose pull`;
-const startTestnetCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet up && ${dkvcli} status`;
+const startTestnetCmd = `kvtool testnet up && ${dkvcli} status`;
 const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf ./full_configs/generated`;
 const purgeDockerCmd = `docker image prune --all --force`;
 /** `kvtool testnet up --kava.configTemplate master && ${dkvcli} status` */
@@ -46,10 +46,10 @@ const startTestnet = () => runExec(startTestnetCmd);
 /** fixes bug on mac m1 silicon where docker pulls the incompatible arm image */
 const reWriteDockerfile = () => {
   try {
-    console.log('rewriting Dockerfile\n')
     const filePath = `${KVTOOL_DIR}/full_configs/generated/binance/Dockerfile`;
     const data = readFileSync(filePath, 'utf8');
     if (data.includes('--platform=linux/amd64 ')) return null;
+    console.log('rewriting Dockerfile\n')
     const insertIndex = data.indexOf('ubuntu:');
     const replacement =
       data.substring(0, insertIndex) +

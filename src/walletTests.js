@@ -9,10 +9,10 @@ const {API_URL, pPrint, runExec, dkvcli , Kava} = init;
 
 const newUserMnemonic = Kava.crypto.generateMnemonic();
 // pPrint(mnemonic, 'mnemonic');
-
+const defaultUserName = 'addr1'
 const defaultUserMnemonic =
-  'season bone lucky dog depth pond royal decide unknown device fruit inch clock trap relief horse morning taxi bird session throw skull avocado private';
-const defaultUserAddress = 'kava173w2zz287s36ewnnkf4mjansnthnnsz7rtrxqc';
+  'arrive guide way exit polar print kitchen hair series custom siege afraid shrug crew fashion mind script divorce pattern trust project regular robust safe';
+const defaultUserAddress = 'kava1vlpsrmdyuywvaqrv7rx6xga224sqfwz3fyfhwq';
 
 const client = new Kava.KavaClient(API_URL);
 client.setWallet(defaultUserMnemonic);
@@ -22,14 +22,17 @@ const newAddress = client.wallet.address;
 const recoverCmd = (addressName, mnemonic) =>
   `${dkvcli} keys add ${addressName} --recover && ${mnemonic}`;
 const sendCoinsCmd = (sendAddressName, receiveAddress, amount, currency) =>
-  `${dkvcli} tx send ${sendAddressName} ${receiveAddress} ${amount}${currency} --chain-id kava-localnet`;
+  `${dkvcli} tx send ${sendAddressName} ${receiveAddress} ${amount}${currency} --chain-id kava-localnet -y`;
 
 
 const runTest = async () => {
   // await init.initialize();
   await init.start();
-  runExec(recoverCmd(init.devWalletName, init.devWalletMnemonic))
-  runExec(sendCoinsCmd(init.devWalletAddName, init.devWalletAdd, 100000000000000, 'ukava'));
+  runExec(recoverCmd(defaultUserName, defaultUserMnemonic));
+  
+  runExec(
+    sendCoinsCmd(defaultUserName, init.devWalletAdd, 100000000000000, 'ukava')
+  );
 };
 
 
