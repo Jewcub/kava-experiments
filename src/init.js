@@ -19,6 +19,7 @@ const devWalletMnemonic = process.env.DEV_WALLET_MNEMONIC;
 const ARCH_ENV = 'arm';
 //** I found it better to run kvtool from  */
 const KVTOOL_DIR = path.join('/Users/jacob/Documents/GitHub/kava/kvtool');
+const KVTOOL_CONFIG_DIR = '/full_configs/generated';
 const THIS_DIR = path.join(__dirname, '/');
 const LOCAL_API_URL = 'http://localhost:1317';
 // const LIVE_API_URL = 'https://kava4.data.kava.io';
@@ -36,18 +37,18 @@ const archPrefix = `${
   ARCH_ENV === 'arm' ? 'export DOCKER_DEFAULT_PLATFORM=linux/amd64 &&' : ''
 }`;
 const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy --kava.configTemplate master`;
-const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}/full_configs/generated && docker-compose pull`;
-const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}/full_configs/generated docker-compose.yaml up -d && ${dkvcli} status`;
-const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf ./full_configs/generated`;
+const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} && docker-compose pull`;
+const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/docker-compose.yaml up -d && ${dkvcli} status`;
+const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf .${KVTOOL_CONFIG_DIR}`;
 const purgeDockerCmd = `docker image prune --all --force`;
 
-/** `${KVTOOL_DIR}/full_configs/generated docker-compose.yaml up -d && ${dkvcli} status` */
+/** `${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} docker-compose.yaml up -d && ${dkvcli} status` */
 const startTestnet = () => runExec(startTestnetCmd);
 
 /** fixes bug on mac m1 silicon where docker pulls the incompatible arm image */
 const reWriteDockerfile = () => {
   try {
-    const filePath = `${KVTOOL_DIR}/full_configs/generated/binance/Dockerfile`;
+    const filePath = `${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/binance/Dockerfile`;
     const data = readFileSync(filePath, 'utf8');
     if (data.includes('--platform=linux/amd64 ')) return null;
     console.log('rewriting Dockerfile\n')
