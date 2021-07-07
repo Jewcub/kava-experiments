@@ -31,14 +31,7 @@ const getLatestBlocks = async () => {
 };
 
 
-// give a user tokens
-const giveUserTokens = () => {
-	// runExec(`${dkvcli} keys add user_bob --output json`);
-	runExec(`${dkvcli} keys show user_bob -a `);
-	runExec(
-		`${dkvcli} tx send ${init.newAddress} ${init.newAddress} 100000000000000ukava --from user_bob && y`
-	);
-};
+
 
 // stake the user's tokens
 const stakeUserTokens = async () => {
@@ -59,7 +52,7 @@ const voteOnProposal = () => {
 const test = async () => {
 	try {
 		// getNodeInfo();
-		giveUserTokens();
+	
 	} catch (error) {
 		pPrint(error, 'error');
 	}

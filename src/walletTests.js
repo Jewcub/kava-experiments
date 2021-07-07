@@ -31,8 +31,9 @@ const runTest = async () => {
   runExec(recoverCmd(defaultUserName, defaultUserMnemonic));
   
   runExec(
-    sendCoinsCmd(defaultUserName, init.devWalletAdd, 100000000000000, 'ukava')
+    sendCoinsCmd(defaultUserName, init.devWalletAdd, 100000000000000, 'usdx')
   );
+
 };
 
 
