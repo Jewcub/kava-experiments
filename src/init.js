@@ -92,8 +92,10 @@ const initialize = async () => {
 const start = async () => {
   try {
     await getNodeInfo();
+    console.log('**** TESTNET ALREADY RUNNING **** ');
   } catch (error) {
     startTestnet();
+    console.log('**** STARTING NEW TESTNET **** ');
     await getNodeInfo();
   }
 };
