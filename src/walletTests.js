@@ -26,20 +26,14 @@ const sendCoinsCmd = (sendAddressName, receiveAddress, amount, currency) =>
 const runTest = async () => {
   // await init.initialize();
   await init.start();
-  runExec(recoverCmd(defaultUserName, defaultUserMnemonic));
+  runExec(recoverCmd(newAddress, defaultUserMnemonic));
 
   runExec(
-    sendCoinsCmd(defaultUserName, init.devWalletAdd, 100000000000000, 'ukava')
+    sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'ukava')
   );
-  runExec(
-    sendCoinsCmd(defaultUserName, init.devWalletAdd, 100000000000000, 'usdx')
-  );
-  runExec(
-    sendCoinsCmd(defaultUserName, init.devWalletAdd, 100000000000000, 'bnb')
-  );
-  runExec(
-    sendCoinsCmd(defaultUserName, init.devWalletAdd, 100000000000000, 'hard')
-  );
+  runExec(sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'usdx'));
+  runExec(sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'bnb'));
+  runExec(sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'hard'));
 };
 
 module.exports = runTest;
