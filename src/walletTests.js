@@ -23,17 +23,18 @@ const recoverCmd = (addressName, mnemonic) =>
 const sendCoinsCmd = (sendAddressName, receiveAddress, amount, currency) =>
   `${dkvcli} tx send ${sendAddressName} ${receiveAddress} ${amount}${currency} --chain-id kava-localnet -y`;
 
-const runTest = async () => {
-  // await init.initialize();
-  await init.start();
-  runExec(recoverCmd(newAddress, defaultUserMnemonic));
+// to send multiple coins
+// docker exec generated_kavanode_1 kvcli tx send whale kava10x8cvphxl2ddykg73fhc7nhzqvt0h4h6y5t2nl 20000000000usdx,20000000000swp,20000000000hard,200000000000ukava,200000000000bnb,200000000000busd,200000000000xrpb,200000000000btcb -y
 
-  runExec(
-    sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'ukava')
-  );
-  runExec(sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'usdx'));
-  runExec(sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'bnb'));
-  runExec(sendCoinsCmd(newAddress, init.devWalletAdd, 100000000000000, 'hard'));
+const runTest = async () => {
+  await init.initialize();
+  await init.start();
+  // runExec(recoverCmd(newAddress, defaultUserMnemonic));
+
+  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'ukava'));
+  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'usdx'));
+  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'bnb'));
+  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'hard'));
 };
 
 module.exports = runTest;

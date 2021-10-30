@@ -36,7 +36,8 @@ const dkvcli = 'docker exec generated_kavanode_1 kvcli';
 const archPrefix = `${
   ARCH_ENV === 'arm' ? 'export DOCKER_DEFAULT_PLATFORM=linux/amd64 &&' : ''
 }`;
-const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy --kava.configTemplate master`;
+const kavaVersion = 'upgrade-v44';
+const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy --kava.configTemplate ${kavaVersion}`;
 const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} && docker-compose pull`;
 const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/docker-compose.yaml up -d && ${dkvcli} status`;
 const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf .${KVTOOL_CONFIG_DIR}`;
@@ -51,7 +52,7 @@ const reWriteDockerfile = () => {
     const filePath = `${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/binance/Dockerfile`;
     const data = readFileSync(filePath, 'utf8');
     if (data.includes('--platform=linux/amd64 ')) return null;
-    console.log('rewriting Dockerfile\n')
+    console.log('rewriting Dockerfile\n');
     const insertIndex = data.indexOf('ubuntu:');
     const replacement =
       data.substring(0, insertIndex) +
@@ -84,7 +85,7 @@ const initialize = async () => {
   // purgeConfig();
   console.log('configuring kava\n', configKvtoolCmd);
   runExec(`${configKvtoolCmd}`);
-  if ( ARCH_ENV === 'arm') reWriteDockerfile()
+  if (ARCH_ENV === 'arm') reWriteDockerfile();
   console.log('pulling images\n', pullTestnetImgsCmd);
   runExec(`${pullTestnetImgsCmd}`);
 };
