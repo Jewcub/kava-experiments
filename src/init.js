@@ -27,24 +27,27 @@ const LOCAL_API_URL = 'http://localhost:1317';
 /** Pick a testnet from local/live or testnet above*/
 const API_URL = LOCAL_API_URL;
 
-/**
- * COMMANDS
- */
-
 /** Alias for kvcli inside the docker container */
-const dkvcli = 'docker exec generated_kavanode_1 kvcli';
+const dockerExec = 'docker exec generated_kavanode_1 ';
+// const cliCmd = 'kava'
+const cliCmd = 'kvcli';
+const dkvcli = dockerExec + cliCmd;
+
 const archPrefix = `${
   ARCH_ENV === 'arm' ? 'export DOCKER_DEFAULT_PLATFORM=linux/amd64 &&' : ''
 }`;
-const kavaVersion = 'upgrade-v44';
-const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy --kava.configTemplate ${kavaVersion}`;
-const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} && docker-compose pull`;
-const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/docker-compose.yaml up -d && ${dkvcli} status`;
-const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf .${KVTOOL_CONFIG_DIR}`;
-const purgeDockerCmd = `docker image prune --all --force`;
+// const kavaVersion = 'upgrade-v44';
+const kavaVersion = 'v0.15';
 
+const configTemplate = `--kava.configTemplate ${kavaVersion}`;
 /** `${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} docker-compose.yaml up -d && ${dkvcli} status` */
-const startTestnet = () => runExec(startTestnetCmd);
+
+const startTestnet = () => {
+  const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/docker-compose.yaml down && docker-compose --file ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/docker-compose.yaml up -d && ${dkvcli} status`;
+  runExec(startTestnetCmd);
+
+  // runExec('kvtool testnet up');
+};
 
 /** fixes bug on mac m1 silicon where docker pulls the incompatible arm image */
 const reWriteDockerfile = () => {
@@ -72,22 +75,29 @@ const getNodeInfo = async () => {
 };
 
 const purgeDocker = () => {
+  const purgeDockerCmd = `docker image prune --all --force`;
   console.log('purging docker images\n');
   runExec(purgeDockerCmd);
 };
+
 const purgeConfig = () => {
+  const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf .${KVTOOL_CONFIG_DIR}`;
   console.log('purging config\n');
   runExec(purgeConfigCmd);
 };
 
 const initialize = async () => {
-  // purgeDocker();
-  // purgeConfig();
+  const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy ${configTemplate}`;
+  const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} && docker-compose pull`;
+  purgeDocker();
+  purgeConfig();
   console.log('configuring kava\n', configKvtoolCmd);
   runExec(`${configKvtoolCmd}`);
   if (ARCH_ENV === 'arm') reWriteDockerfile();
   console.log('pulling images\n', pullTestnetImgsCmd);
   runExec(`${pullTestnetImgsCmd}`);
+
+  // runExec('kvtool testnet bootstrap');
 };
 
 const start = async () => {
