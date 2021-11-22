@@ -2,6 +2,12 @@ const fetch = require('node-fetch');
 const init = require('./init');
 const { API_URL, pPrint, runExec, dkvcli, Kava } = init;
 
+/*
+V44 changes
+*/
+const sendCmd = 'tx bank send';
+// const sendCmd = 'tx send'; // before v44
+
 /**
  * WALLET SETUP
  */
@@ -17,8 +23,6 @@ const client = new Kava.KavaClient(API_URL);
 client.setWallet(defaultUserMnemonic);
 
 const newAddress = client.wallet.address;
-// const sendCmd = 'tx bank send';
-const sendCmd = 'tx send'; // before v44
 
 const recoverCmd = (addressName, mnemonic) =>
   `${dkvcli} keys add ${addressName} --recover && ${mnemonic}`;

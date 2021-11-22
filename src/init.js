@@ -8,6 +8,14 @@ dotenv.config();
 const utils = require('./utils');
 const { pPrint, runExec, fetchJSON } = utils;
 
+/*
+V44 changes
+*/
+const cliCmd = 'kava'; //v44
+// const cliCmd = 'kvcli';
+const kavaVersion = 'upgrade-v44';
+// const kavaVersion = 'v0.15';
+
 /**
  * ENVS
  */
@@ -29,15 +37,12 @@ const API_URL = LOCAL_API_URL;
 
 /** Alias for kvcli inside the docker container */
 const dockerExec = 'docker exec generated_kavanode_1 ';
-// const cliCmd = 'kava'
-const cliCmd = 'kvcli';
+
 const dkvcli = dockerExec + cliCmd;
 
 const archPrefix = `${
   ARCH_ENV === 'arm' ? 'export DOCKER_DEFAULT_PLATFORM=linux/amd64 &&' : ''
 }`;
-// const kavaVersion = 'upgrade-v44';
-const kavaVersion = 'v0.15';
 
 const configTemplate = `--kava.configTemplate ${kavaVersion}`;
 /** `${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} docker-compose.yaml up -d && ${dkvcli} status` */
