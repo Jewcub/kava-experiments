@@ -94,19 +94,17 @@ const test = async () => {
     // await start();
     // await getNodeInfo();
     // run(govHelp);
-    // run(whaleSend);
+    run(whaleSend);
     // run(queryCommitteesCmd);
 
     // v44 upgrade
-    run(deleteOld(committeePropFileV44));
-    run(dockerCopyCommand(committeePropFileV44));
-    // run(checkProp(committeePropFileV44));
-    run(submitCommitteeProposalCommandV44(committeePropFileV44, 3));
+    // run(deleteOld(committeePropFileV44));
+    // run(dockerCopyCommand(committeePropFileV44));
+    // run(submitCommitteeProposalCommandV44(committeePropFileV44, 5));
 
-    run(deleteOld(propFileV44));
-    run(dockerCopyCommand(propFileV44));
-    // run(checkProp(propFileV44));
-    run(submitGovProposalCommandV44(propFileV44));
+    // run(deleteOld(propFileV44));
+    // run(dockerCopyCommand(propFileV44));
+    // run(submitGovProposalCommandV44(propFileV44));
 
     // v.0.15 works!
     // run(deleteOld(propFile));

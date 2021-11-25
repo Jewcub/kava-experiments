@@ -1,12 +1,12 @@
 {
   "@type": "/cosmos.params.v1beta1.ParameterChangeProposal",
-  "title": "Issue KPOP - committee",
-  "description": "Issue the KPOP token",
+  "title": "Swap rewards - committee",
+  "description": "Phasellus pulvinar, orci id laoreet molestie, justo neque maximus sem, vel gravida purus quam et libero. Proin iaculis aliquam lorem at consectetur. Fusce ac augue sit amet justo scelerisque semper. Aliquam vitae consectetur urna. Proin facilisis orci a ligula sagittis, eget fringilla sem posuere. Donec gravida quis metus sit amet rhoncus.",
   "changes": [
     {
-      "subspace": "issuance",
-      "key": "Assets",
-      "value": "[{\"owner\":\"kava173w2zz287s36ewnnkf4mjansnthnnsz7rtrxqc\",\"denom\":\"kpop\",\"blocked_addresses\":null,\"paused\":false,\"blockable\":false,\"rate_limit\":{\"active\":false,\"limit\":\"0\",\"time_period\":\"0\"}}]"
+      "subspace": "swap",
+      "key": "AllowedPools",
+      "value": "[{\"token_a\":\"bnb\",\"token_b\":\"usdx\"},{\"token_a\":\"btcb\",\"token_b\":\"usdx\"},{\"token_a\":\"busd\",\"token_b\":\"usdx\"},{\"token_a\":\"hard\",\"token_b\":\"usdx\"},{\"token_a\":\"swp\",\"token_b\":\"usdx\"},{\"token_a\":\"ukava\",\"token_b\":\"usdx\"},{\"token_a\":\"usdx\",\"token_b\":\"xrpb\"}]"
     }
   ]
 }
