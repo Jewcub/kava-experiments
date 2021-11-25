@@ -1,0 +1,12 @@
+{
+  "@type": "/cosmos.params.v1beta1.ParameterChangeProposal",
+  "title": "Issue KPOP - committee",
+  "description": "Issue the KPOP token",
+  "changes": [
+    {
+      "subspace": "issuance",
+      "key": "Assets",
+      "value": "[{\"owner\":\"kava173w2zz287s36ewnnkf4mjansnthnnsz7rtrxqc\",\"denom\":\"kpop\",\"blocked_addresses\":null,\"paused\":false,\"blockable\":false,\"rate_limit\":{\"active\":false,\"limit\":\"0\",\"time_period\":\"0\"}}]"
+    }
+  ]
+}

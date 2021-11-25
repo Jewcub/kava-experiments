@@ -6,15 +6,19 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const utils = require('./utils');
-const { pPrint, runExec, fetchJSON } = utils;
+const { pPrint, run, fetchJSON } = utils;
+const featV44 = process.env.FEAT_V44 === 'true';
 
+console.log({ featV44 });
 /*
 V44 changes
 */
-const cliCmd = 'kava'; //v44
-// const cliCmd = 'kvcli';
-const kavaVersion = 'upgrade-v44';
-// const kavaVersion = 'v0.15';
+let cliCmd = 'kvcli';
+if (featV44) cliCmd = 'kava'; //v44
+let kavaVersion = 'v0.15';
+if (featV44) kavaVersion = 'upgrade-v44';
+let sendCmd = 'tx send'; // before v44
+if (featV44) sendCmd = 'tx bank send';
 
 /**
  * ENVS
@@ -49,9 +53,9 @@ const configTemplate = `--kava.configTemplate ${kavaVersion}`;
 
 const startTestnet = () => {
   const startTestnetCmd = `docker-compose --file ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/docker-compose.yaml down && docker-compose --file ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR}/docker-compose.yaml up -d && ${dkvcli} status`;
-  runExec(startTestnetCmd);
+  run(startTestnetCmd);
 
-  // runExec('kvtool testnet up');
+  // run('kvtool testnet up');
 };
 
 /** fixes bug on mac m1 silicon where docker pulls the incompatible arm image */
@@ -82,27 +86,27 @@ const getNodeInfo = async () => {
 const purgeDocker = () => {
   const purgeDockerCmd = `docker image prune --all --force`;
   console.log('purging docker images\n');
-  runExec(purgeDockerCmd);
+  run(purgeDockerCmd);
 };
 
 const purgeConfig = () => {
   const purgeConfigCmd = `cd ${KVTOOL_DIR} && rm -rf .${KVTOOL_CONFIG_DIR}`;
   console.log('purging config\n');
-  runExec(purgeConfigCmd);
+  run(purgeConfigCmd);
 };
 
 const initialize = async () => {
   const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy ${configTemplate}`;
   const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} && docker-compose pull`;
-  purgeDocker();
+
   purgeConfig();
   console.log('configuring kava\n', configKvtoolCmd);
-  runExec(`${configKvtoolCmd}`);
+  run(`${configKvtoolCmd}`);
   if (ARCH_ENV === 'arm') reWriteDockerfile();
   console.log('pulling images\n', pullTestnetImgsCmd);
-  runExec(`${pullTestnetImgsCmd}`);
+  run(`${pullTestnetImgsCmd}`);
 
-  // runExec('kvtool testnet bootstrap');
+  // run('kvtool testnet bootstrap');
 };
 
 const start = async () => {
@@ -124,7 +128,7 @@ module.exports = {
   devWalletMnemonic,
   dkvcli,
   pPrint,
-  runExec,
+  run,
   startTestnet,
   getNodeInfo,
   fetchJSON,
@@ -133,4 +137,7 @@ module.exports = {
   purgeDocker,
   purgeConfig,
   reWriteDockerfile,
+  sendCmd,
+  dockerExec,
+  featV44,
 };

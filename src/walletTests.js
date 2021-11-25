@@ -1,12 +1,16 @@
 const fetch = require('node-fetch');
 const init = require('./init');
-const { API_URL, pPrint, runExec, dkvcli, Kava } = init;
-
-/*
-V44 changes
-*/
-const sendCmd = 'tx bank send';
-// const sendCmd = 'tx send'; // before v44
+const {
+  API_URL,
+  pPrint,
+  run,
+  dkvcli,
+  Kava,
+  sendCmd,
+  start,
+  initialize,
+  devWalletAdd,
+} = init;
 
 /**
  * WALLET SETUP
@@ -33,17 +37,17 @@ const sendCoinsCmd = (sendAddressName, receiveAddress, amount, currency) =>
 const whaleSend = `${dkvcli} tx send whale kava10x8cvphxl2ddykg73fhc7nhzqvt0h4h6y5t2nl 20000000000usdx,20000000000swp,20000000000hard,200000000000ukava,200000000000bnb,200000000000busd,200000000000xrpb,200000000000btcb -y`;
 
 const runTest = async () => {
-  // await init.initialize();
-  await init.start();
-  // runExec(`${dkvcli} tx --help`);
-  // runExec(`${dkvcli} keys list`);
-  // runExec(recoverCmd('whale', defaultUserMnemonic));
-  // runExec(whaleSend);
-  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'ukava'));
-  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'usdx'));
-  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'bnb'));
-  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'hard'));
-  runExec(sendCoinsCmd('whale', init.devWalletAdd, 100000000000000, 'busd'));
+  // await initialize();
+  await start();
+  // run(`${dkvcli} tx --help`);
+  // run(`${dkvcli} keys list`);
+  // run(recoverCmd('whale', defaultUserMnemonic));
+  // run(whaleSend);
+  run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'ukava'));
+  run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'usdx'));
+  run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'bnb'));
+  run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'hard'));
+  run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'busd'));
 };
 
 module.exports = runTest;

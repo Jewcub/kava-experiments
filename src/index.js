@@ -1,5 +1,5 @@
-// const govTests = require('./govTests');
-// govTests();
+const govTests = require('./govTests');
+govTests();
 
-const walletTests = require('./walletTests');
-walletTests();
+// const walletTests = require('./walletTests');
+// walletTests();

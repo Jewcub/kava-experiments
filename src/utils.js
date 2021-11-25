@@ -1,12 +1,12 @@
 const execSync = require('child_process').execSync;
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 /** Pretty print objects in node.js */
 const pPrint = (obj, label = null, depth = null) => {
   if (label) console.log('*****' + label + '*****:\n');
   console.dir(obj, { depth: depth });
 };
 /** Run command line commands (synchronous) */
-const runExec = (cmd) => {
+const run = (cmd) => {
   try {
     execSync(cmd, { stdio: 'inherit' });
   } catch (error) {
@@ -22,4 +22,4 @@ async function fetchJSON(url) {
   return response.json();
 }
 
-module.exports = { pPrint, runExec, fetchJSON };
+module.exports = { pPrint, run, fetchJSON };

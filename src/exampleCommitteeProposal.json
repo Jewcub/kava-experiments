@@ -1,0 +1,19 @@
+{
+  "type": "cosmos-sdk/ParameterChangeProposal",
+  "value": {
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "description": "Phasellus pulvinar, orci id laoreet molestie, justo neque maximus sem, vel gravida purus quam et libero. Proin iaculis aliquam lorem at consectetur. Fusce ac augue sit amet justo scelerisque semper. Aliquam vitae consectetur urna. Proin facilisis orci a ligula sagittis, eget fringilla sem posuere. Donec gravida quis metus sit amet rhoncus.",
+    "changes": [
+      {
+        "subspace": "swap",
+        "key": "AllowedPools",
+        "value": "[{\"token_a\":\"bnb\",\"token_b\":\"usdx\"},{\"token_a\":\"btcb\",\"token_b\":\"usdx\"},{\"token_a\":\"busd\",\"token_b\":\"usdx\"},{\"token_a\":\"hard\",\"token_b\":\"usdx\"},{\"token_a\":\"swp\",\"token_b\":\"usdx\"},{\"token_a\":\"ukava\",\"token_b\":\"usdx\"},{\"token_a\":\"usdx\",\"token_b\":\"xrpb\"}]"
+      },
+      {
+        "subspace": "incentive",
+        "key": "SwapRewardPeriods",
+        "value": "[{\"active\":true,\"collateral_type\":\"bnb:usdx\",\"start\":\"2021-08-30T15:00:00Z\",\"end\":\"2025-08-29T15:00:00Z\",\"rewards_per_second\":[{\"denom\":\"swp\",\"amount\":\"47565\"}]},{\"active\":true,\"collateral_type\":\"btcb:usdx\",\"start\":\"2021-08-30T15:00:00Z\",\"end\":\"2025-08-29T15:00:00Z\",\"rewards_per_second\":[{\"denom\":\"swp\",\"amount\":\"47565\"}]},{\"active\":true,\"collateral_type\":\"busd:usdx\",\"start\":\"2021-08-30T15:00:00Z\",\"end\":\"2025-08-29T15:00:00Z\",\"rewards_per_second\":[{\"denom\":\"swp\",\"amount\":\"158549\"}]},{\"active\":true,\"collateral_type\":\"hard:usdx\",\"start\":\"2021-08-30T15:00:00Z\",\"end\":\"2025-08-29T15:00:00Z\",\"rewards_per_second\":[{\"denom\":\"swp\",\"amount\":\"47565\"}]},{\"active\":true,\"collateral_type\":\"swp:usdx\",\"start\":\"2021-08-30T15:00:00Z\",\"end\":\"2025-08-29T15:00:00Z\",\"rewards_per_second\":[{\"denom\":\"swp\",\"amount\":\"190259\"}]},{\"active\":true,\"collateral_type\":\"ukava:usdx\",\"start\":\"2021-08-30T15:00:00Z\",\"end\":\"2025-08-29T15:00:00Z\",\"rewards_per_second\":[{\"denom\":\"swp\",\"amount\":\"221969\"}]},{\"active\":true,\"collateral_type\":\"usdx:xrpb\",\"start\":\"2021-08-30T15:00:00Z\",\"end\":\"2025-08-29T15:00:00Z\",\"rewards_per_second\":[{\"denom\":\"swp\",\"amount\":\"47565\"}]}]"
+      }
+    ]
+  }
+}
