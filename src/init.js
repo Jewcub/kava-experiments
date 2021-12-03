@@ -95,6 +95,7 @@ const purgeConfig = () => {
   run(purgeConfigCmd);
 };
 
+/** Rewrites config files, pulls docker images */
 const initialize = async () => {
   const configKvtoolCmd = `${archPrefix} cd ${KVTOOL_DIR} && kvtool testnet gen-config kava binance deputy ${configTemplate}`;
   const pullTestnetImgsCmd = `${archPrefix} cd ${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} && docker-compose pull`;

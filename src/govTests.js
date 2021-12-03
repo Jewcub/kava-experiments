@@ -43,9 +43,9 @@ const getLatestBlocks = async () => {
 const stakeUserTokens = async (amount) => {
   // recover command doesnt work in node. must do it manually in terminal
   const devWalletName = `jcr`;
+  //** dkava keys add jcr */
   const recoverCmd = () => `${dkvcli} keys add ${devWalletName}`;
-  // jcr
-  // run(recoverCmd(user, devWalletMnemonic));
+
   const validators = await getAllValidators();
   const validator = validators.result[0];
   const validatorAddress = validator.operator_address;
@@ -121,10 +121,9 @@ const test = async () => {
     await start();
     // await getNodeInfo();
     // run(govHelp);
-    // run(whaleSend);
-    // run(queryCommitteesCmd);
+    run(whaleSend);
     submitProposal();
-    // stakeUserTokens('20000ukava');
+    stakeUserTokens('20000ukava');
   } catch (error) {
     pPrint(error, 'error');
   }
