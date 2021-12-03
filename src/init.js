@@ -15,7 +15,8 @@ V44 changes
 */
 let cliCmd = 'kvcli';
 if (featV44) cliCmd = 'kava'; //v44
-let kavaVersion = 'v0.15';
+// let kavaVersion = 'v0.15';
+let kavaVersion = 'master';
 if (featV44) kavaVersion = 'upgrade-v44';
 let sendCmd = 'tx send'; // before v44
 if (featV44) sendCmd = 'tx bank send';
@@ -47,7 +48,6 @@ const dkvcli = dockerExec + cliCmd;
 const archPrefix = `${
   ARCH_ENV === 'arm' ? 'export DOCKER_DEFAULT_PLATFORM=linux/amd64 &&' : ''
 }`;
-
 const configTemplate = `--kava.configTemplate ${kavaVersion}`;
 /** `${KVTOOL_DIR}${KVTOOL_CONFIG_DIR} docker-compose.yaml up -d && ${dkvcli} status` */
 

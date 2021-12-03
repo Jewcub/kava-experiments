@@ -28,6 +28,7 @@ client.setWallet(defaultUserMnemonic);
 
 const newAddress = client.wallet.address;
 
+// doesnt work, need to manually in console
 const recoverCmd = (addressName, mnemonic) =>
   `${dkvcli} keys add ${addressName} --recover && ${mnemonic}`;
 const sendCoinsCmd = (sendAddressName, receiveAddress, amount, currency) =>
@@ -38,11 +39,11 @@ const whaleSend = `${dkvcli} tx send whale kava10x8cvphxl2ddykg73fhc7nhzqvt0h4h6
 
 const runTest = async () => {
   // await initialize();
-  await start();
+  // await start();
   // run(`${dkvcli} tx --help`);
   // run(`${dkvcli} keys list`);
   // run(recoverCmd('whale', defaultUserMnemonic));
-  // run(whaleSend);
+  run(whaleSend);
   run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'ukava'));
   run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'usdx'));
   run(sendCoinsCmd('whale', devWalletAdd, 100000000000000, 'bnb'));
