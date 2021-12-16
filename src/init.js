@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const utils = require('./utils');
-const { pPrint, run, fetchJSON } = utils;
+const { pPrint, run, fetchJSON, runRead } = utils;
 const featV44 = process.env.FEAT_V44 === 'true';
 
 console.log({ featV44 });
@@ -42,7 +42,8 @@ const API_URL = LOCAL_API_URL;
 
 /** Alias for kvcli inside the docker container */
 const dockerExec = 'docker exec generated_kavanode_1 ';
-
+const ibcExec = 'docker exec generated_ibcnode_1 ';
+const ibcDkvcli = ibcExec + cliCmd;
 const dkvcli = dockerExec + cliCmd;
 
 const archPrefix = `${
@@ -128,8 +129,10 @@ module.exports = {
   devWalletName,
   devWalletMnemonic,
   dkvcli,
+  ibcDkvcli,
   pPrint,
   run,
+  runRead,
   startTestnet,
   getNodeInfo,
   fetchJSON,
